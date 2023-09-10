@@ -18,7 +18,6 @@ public class ClienteMysql implements IClienteService{
 	
 	@Override
 	public List<Cliente> obtenerTodos() {
-		// TODO Auto-generated method stub
 		return repo.findAll();
 	}
 
@@ -57,8 +56,11 @@ public class ClienteMysql implements IClienteService{
 	        Cliente ClienteExistente = ClienteOptional.get();
 	        ClienteExistente.setNombre(ClienteModificado.getNombre());
 	        ClienteExistente.setApellido(ClienteModificado.getApellido());
-	        ClienteExistente.setEdad(ClienteModificado.getEdad());
-	        ClienteExistente.setDireccion(ClienteModificado.getDireccion());
+	        ClienteExistente.setFechaNacimiento(ClienteModificado.getFechaNacimiento());
+	        ClienteExistente.setDomicilio(ClienteModificado.getDomicilio());
+	        ClienteExistente.setTelefono(ClienteModificado.getTelefono());
+	        ClienteExistente.setCorreo(ClienteModificado.getCorreo());
+
 	        return repo.save(ClienteExistente);
 	    } else {
 	        return null;

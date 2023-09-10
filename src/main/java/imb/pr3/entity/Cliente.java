@@ -1,10 +1,14 @@
 package imb.pr3.entity;
 
+import java.util.Date;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
 @Entity
@@ -18,12 +22,34 @@ public class Cliente {
     @NotBlank(message = "El apellido no puede estar vacío.")
 	@Size(max=50, message = "El apellido no puede tener más de 50 caracteres.")
     private String apellido;
-    private int edad;
+    private Date fechaNacimiento;
     @NotBlank(message = "La dirección no puede estar vacía.")
 	@Size(min = 3, max = 100, message = "Mínimo 3, máximo 100 caracteres.")
-    private String direccion;
+    private String domicilio;
+    @NotBlank(message = "El número de teléfono no puede estar vacío.")
+    @Pattern(regexp = "\\d{13}", message = "El número de teléfono debe contener 13 dígitos numéricos.")
+    private String telefono;
+    @NotBlank(message = "El correo electrónico no puede estar vacío.")
+    @Email(message = "Debe proporcionar una dirección de correo electrónico válida.")
+    private String correo;
+    
+    public String getTelefono() {
+		return telefono;
+	}
 
-    public Long getId() {
+	public void setTelefono(String telefono) {
+		this.telefono = telefono;
+	}
+
+	public String getCorreo() {
+		return correo;
+	}
+
+	public void setCorreo(String correo) {
+		this.correo = correo;
+	}
+
+	public Long getId() {
         return id;
     }
 
@@ -47,20 +73,20 @@ public class Cliente {
         this.apellido = apellido;
     }
 
-    public int getEdad() {
-        return edad;
+    public String getDomicilio() {
+        return domicilio;
     }
 
-    public void setEdad(int edad) {
-        this.edad = edad;
+    public void setDomicilio(String domicilio) {
+        this.domicilio = domicilio;
     }
 
-    public String getDireccion() {
-        return direccion;
-    }
+	public Date getFechaNacimiento() {
+		return fechaNacimiento;
+	}
 
-    public void setDireccion(String direccion) {
-        this.direccion = direccion;
-    }
+	public void setFechaNacimiento(Date fechaNacimiento) {
+		this.fechaNacimiento = fechaNacimiento;
+	}
 
 }
