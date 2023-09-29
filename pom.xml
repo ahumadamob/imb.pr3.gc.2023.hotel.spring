@@ -14,7 +14,7 @@
 	<name>hotel</name>
 	<description>IMB Programación 3 Godoy Cruz 2023 Servicio Hotelero</description>
 	<properties>
-		<java.version>20</java.version>
+		<java.version>17</java.version>
 	</properties>
 	<dependencies>
 		<dependency>
