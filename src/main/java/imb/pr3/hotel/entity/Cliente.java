@@ -2,10 +2,15 @@ package imb.pr3.hotel.entity;
 
 import java.util.Date;
 
+import jakarta.persistence.CascadeType;
+//import imb.pr3.hotel.entity.Reservacion; TODO: quitar comentario en próximo merge
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
@@ -33,7 +38,34 @@ public class Cliente {
     @Email(message = "Debe proporcionar una dirección de correo electrónico válida.")
     private String correo; // Correo electrónico del cliente
     
-    // Métodos getter y setter para cada campo de la clase
+    /*
+    //TODO:A la espera de la llegada de la entidad correspondiente al proyecto
+    @ManyToOne
+    @JoinColumn(name = "reservacion_id")
+    private Reservacion reservacion;
+    
+    //TODO:A la espera de la llegada de la entidad correspondiente al proyecto
+    @OneToMany(mappedBy = "habitacion", cascade = CascadeType.ALL)
+    private Habitacion habitacion;
+    
+    public Reservacion getReservacion() {
+		return reservacion;
+	}
+
+	public void setReservacion(Reservacion reservacion) {
+		this.reservacion = reservacion;
+	}
+
+	public Habitacion getHabitacion() {
+		return habitacion;
+	}
+
+	public void setHabitacion(Habitacion habitacion) {
+		this.habitacion = habitacion;
+	}
+	*/
+
+	// Métodos getter y setter para cada campo de la clase
     public String getTelefono() {
 		return telefono;
 	}
