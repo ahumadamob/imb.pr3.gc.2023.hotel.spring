@@ -59,11 +59,11 @@ public class ClienteController {
 	}
 
 	// Endpoint para modificar un cliente
-	@PutMapping("/Cliente")
+	@PutMapping("/Cliente") //Define el método "modificarCliente", y funciona tomando un objeto Cliente para devolver una respuesta con el ResponseEntity
 	public ResponseEntity<APIResponse<Cliente>> modificarCliente(@RequestBody Cliente Cliente) {
-		return this.existe(Cliente.getId()) //Verificar existencia del cliente por ID 
+		return this.existe(Cliente.getId()) //Verifica existencia del cliente por ID 
 				? ResponseUtil.success(service.crearCliente(Cliente)) //Modifica el cliente si encuentra
-				: ResponseUtil.badRequest("No existe un cliente con ese identificador."); //400 si no  encuentra
+				: ResponseUtil.badRequest("No existe un cliente con ese identificador."); //Devuelve 400 si no  encuentra
 	}
 
 	// Endpoint para eliminar un cliente con el ID
