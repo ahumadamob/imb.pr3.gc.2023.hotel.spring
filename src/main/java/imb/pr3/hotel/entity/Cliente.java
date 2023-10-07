@@ -2,10 +2,12 @@ package imb.pr3.hotel.entity;
 
 import java.util.Date;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
@@ -32,6 +34,19 @@ public class Cliente {
     @NotBlank(message = "El correo electrónico no puede estar vacío.")
     @Email(message = "Debe proporcionar una dirección de correo electrónico válida.")
     private String correo;
+    
+    
+    @OneToMany(mappedBy = "habitacion", cascade = CascadeType.ALL)
+    private Habitacion habitacion;
+    
+    
+    
+    public Habitacion getHabitacion() {
+		return habitacion;
+	}
+
+	public void setHabitacion(Habitacion habitacion) {
+		this.habitacion = habitacion;
     
     public String getTelefono() {
 		return telefono;

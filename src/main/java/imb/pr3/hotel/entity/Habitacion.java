@@ -1,9 +1,13 @@
 package imb.pr3.hotel.entity;
 
+import java.util.List;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class Habitacion {
@@ -22,6 +26,19 @@ public class Habitacion {
 	    private boolean balcon;
 		public Integer getId() {
 			return id;
+			}
+
+	    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
+	    private List<Cliente> clientes;
+	    
+	    
+	    
+	    
+		public List<Cliente> getClientes() {
+			return clientes;
+		}
+		public void setClientes(List<Cliente> clientes) {
+			this.clientes = clientes;
 		}
 		public void setId(Integer id) {
 			this.id = id;
