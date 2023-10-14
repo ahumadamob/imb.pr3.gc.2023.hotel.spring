@@ -1,6 +1,5 @@
 package imb.pr3.hotel.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +19,6 @@ import org.springframework.web.bind.annotation.RestController;
 import imb.pr3.hotel.entity.Cliente;
 import imb.pr3.hotel.service.IClienteService;
 import imb.pr3.hotel.util.ResponseUtil;
-import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
 
 @RestController
@@ -33,8 +31,8 @@ public class ClienteController {
 	
 	// Endpoint para obtener todos los clientes
 	@GetMapping("/Cliente")
-	public ResponseEntity<APIResponse<List<Cliente>>>obtenerTodosLosClientes(){
-		APIResponse<List<Cliente>> response = new APIResponse<List<Cliente>>(200, null, service.obtenerTodosLosClientes());	
+	public ResponseEntity<APIResponse<List<Cliente>>>obtenerTodos(){
+		APIResponse<List<Cliente>> response = new APIResponse<List<Cliente>>(200, null, service.obtenerTodos());	
 		List<Cliente> clientes = response.getData(); //Leer la respuesta y retornar OK o 404 dependiendo de lo encontrado
 		return (clientes.isEmpty())
 		        ? ResponseEntity.status(HttpStatus.NOT_FOUND).body(response)
@@ -43,8 +41,8 @@ public class ClienteController {
 	
 	// Endpoint para obtener un cliente por ID
 	@GetMapping("/Cliente/{id}")
-	public ResponseEntity<APIResponse<Cliente>> buscarClientePorId(@PathVariable("id") Long id) {
-	    Cliente ClientePorId = service.buscarClientePorId(id);
+	public ResponseEntity<APIResponse<Cliente>> buscarClientePorId(@PathVariable("id") Integer id) {
+	    Cliente ClientePorId = service.buscarPorId(id);
 	    return ClientePorId == null 
 	    		? ResponseUtil.notFound("No se encontró el cliente con el identificador proporcionado")
 				: ResponseUtil.success(ClientePorId);
@@ -55,28 +53,28 @@ public class ClienteController {
 	public ResponseEntity<APIResponse<Cliente>> crearCliente(@RequestBody Cliente Cliente) {
 		return this.existe(Cliente.getId())
 				? ResponseUtil.badRequest("Ya existe un cliente con el identificador proporcionado.")
-        		: ResponseUtil.created(service.crearCliente(Cliente)); //Crea el cliente si está el id disponible
+        		: ResponseUtil.created(service.crear(Cliente)); //Crea el cliente si está el id disponible
 	}
 
 	// Endpoint para modificar un cliente
 	@PutMapping("/Cliente") //Define el método "modificarCliente", y funciona tomando un objeto Cliente para devolver una respuesta con el ResponseEntity
 	public ResponseEntity<APIResponse<Cliente>> modificarCliente(@RequestBody Cliente Cliente) {
 		return this.existe(Cliente.getId()) //Verifica existencia del cliente por ID 
-				? ResponseUtil.success(service.crearCliente(Cliente)) //Modifica el cliente si encuentra
+				? ResponseUtil.success(service.crear(Cliente)) //Modifica el cliente si encuentra
 				: ResponseUtil.badRequest("No existe un cliente con ese identificador."); //Devuelve 400 si no  encuentra
 	}
 
 	// Endpoint para eliminar un cliente con el ID
 	@DeleteMapping("/Cliente/{id}")
-	public ResponseEntity<APIResponse<String>> eliminarCliente(@PathVariable("id") Long id) {
+	public ResponseEntity<APIResponse<String>> eliminarCliente(@PathVariable("id") Integer id) {
 	    return this.existe(id) 
-	    		? ResponseUtil.success(service.eliminarCliente(id))
+	    		? ResponseUtil.success(service.eliminar(id))
 	    		:ResponseUtil.badRequest("No se encontró ese cliente. No se borró registro alguno.");
 	}
 
 	//Verificador de existencia usando el ID
-	public boolean existe(Long id) {
-	    return (id != null) ? (service.buscarClientePorId(id) != null) : false;
+	public boolean existe(Integer id) {
+	    return (id != null) ? (service.buscarPorId(id) != null) : false;
 	}
 	
 	@ExceptionHandler(Exception.class)

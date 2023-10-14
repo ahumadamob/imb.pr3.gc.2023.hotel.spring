@@ -20,7 +20,7 @@ import jakarta.validation.constraints.Size;
 public class Cliente {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id; // Identificador del cliente
+    private Integer id; // Identificador del cliente
     @NotBlank(message = "El nombre no puede estar vacío.")
 	@Size(max=50, message = "El nombre no puede tener más de 50 caracteres.")
     private String nombre; // Nombre del cliente
@@ -82,11 +82,11 @@ public class Cliente {
 		this.correo = correo;
 	}
 
-	public Long getId() {
+	public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
