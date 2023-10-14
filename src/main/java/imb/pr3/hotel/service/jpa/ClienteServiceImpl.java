@@ -19,12 +19,12 @@ public class ClienteServiceImpl implements IClienteService{
 	ClienteRepository repo; //Objeto para interactuar con la base de datos
 	
 	@Override
-	public List<Cliente> obtenerTodosLosClientes() { //Recuperar una LISTA con lso clientes
+	public List<Cliente> obtenerTodos() { //Recuperar una LISTA con lso clientes
 		return repo.findAll(); //Método de JPA
 	}
 
 	@Override
-	public Cliente buscarClientePorId(Long id) { //Recupera un cliente por ID
+	public Cliente buscarPorId(Integer id) { //Recupera un cliente por ID
 		Optional<Cliente> ClienteOptional = repo.findById(id); //Método de JPA
         if (ClienteOptional.isPresent()) {
             return ClienteOptional.get();
@@ -35,12 +35,12 @@ public class ClienteServiceImpl implements IClienteService{
 	}
 
 	@Override
-	public Cliente crearCliente(Cliente Cliente) { //Crear un cliente nuevo
+	public Cliente crear(Cliente Cliente) { //Crear un cliente nuevo
 		return repo.save(Cliente); //Método de JPA
 	}
 
 	@Override
-	public String eliminarCliente(Long id) {  //Borrar un cliente si existe
+	public String eliminar(Integer id) {  //Borrar un cliente si existe
 		boolean existeRegistro = repo.existsById(id); //Método de JPA
 	    if (existeRegistro) {
 	        repo.deleteById(id); //Método de JPA
@@ -51,8 +51,8 @@ public class ClienteServiceImpl implements IClienteService{
 	}
 
 	@Override
-	public Cliente modificarCliente(Cliente ClienteModificado) { //Modificar un cliente
-		Long id = ClienteModificado.getId();
+	public Cliente modificar(Cliente ClienteModificado) { //Modificar un cliente
+		Integer id = ClienteModificado.getId();
 	    Optional<Cliente> ClienteOptional = repo.findById(id); //Método de JPA
 	    if (ClienteOptional.isPresent()) {
 	    	//Creo un cliente temporal para intercambiar los nuevos datos con los antiguos
@@ -68,6 +68,11 @@ public class ClienteServiceImpl implements IClienteService{
 	    } else {
 	        return null;
 	    }
+	}
+	
+	@Override
+	public boolean existe(Integer id) {
+		return(id ==null)? false:repo.existsById(id);
 	}
 
 }

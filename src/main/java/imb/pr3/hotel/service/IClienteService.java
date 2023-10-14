@@ -10,4 +10,5 @@ public interface IClienteService {
     public Cliente crear(Cliente Cliente); //Guardar nuevo cliente en bbdd
     public String eliminar(Integer id); //Eliminar un cliente de la bbdd por ID
     public Cliente modificar(Cliente Cliente); //Cambiar los datos del cliente en la bbdd
+    public boolean existe(Integer id); //Evaluar la existencia del ID
 }

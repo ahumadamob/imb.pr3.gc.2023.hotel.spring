@@ -1,9 +1,12 @@
 package imb.pr3.hotel.entity;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Habitacion {
@@ -20,6 +23,11 @@ public class Habitacion {
 	    private boolean suite;
 	    private boolean baño;
 	    private boolean balcon;
+	    
+	    @ManyToOne(cascade = CascadeType.REFRESH)
+	    @JoinColumn(name = "cliente_id")
+	    private Cliente cliente;
+	    
 		public Integer getId() {
 			return id;
 		}

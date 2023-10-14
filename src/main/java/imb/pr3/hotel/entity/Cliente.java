@@ -43,11 +43,11 @@ public class Cliente {
     @ManyToOne
     @JoinColumn(name = "reservacion_id")
     private Reservacion reservacion;
+    */
     
-    //TODO:A la espera de la llegada de la entidad correspondiente al proyecto
     @OneToMany(mappedBy = "habitacion", cascade = CascadeType.ALL)
     private Habitacion habitacion;
-    
+  /*
     public Reservacion getReservacion() {
 		return reservacion;
 	}
@@ -55,7 +55,7 @@ public class Cliente {
 	public void setReservacion(Reservacion reservacion) {
 		this.reservacion = reservacion;
 	}
-
+*/
 	public Habitacion getHabitacion() {
 		return habitacion;
 	}
@@ -63,7 +63,6 @@ public class Cliente {
 	public void setHabitacion(Habitacion habitacion) {
 		this.habitacion = habitacion;
 	}
-	*/
 
 	// Métodos getter y setter para cada campo de la clase
     public String getTelefono() {
