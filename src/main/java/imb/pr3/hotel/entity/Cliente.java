@@ -1,6 +1,7 @@
 package imb.pr3.hotel.entity;
 
 import java.util.Date;
+import java.util.List;
 
 import jakarta.persistence.CascadeType;
 //import imb.pr3.hotel.entity.Reservacion; TODO: quitar comentario en próximo merge
@@ -45,8 +46,8 @@ public class Cliente {
     private Reservacion reservacion;
     */
     
-    @OneToMany(mappedBy = "habitacion", cascade = CascadeType.ALL)
-    private Habitacion habitacion;
+    @OneToMany(mappedBy = "cliente")
+    private List<Habitacion> habitaciones;
   /*
     public Reservacion getReservacion() {
 		return reservacion;
@@ -56,17 +57,19 @@ public class Cliente {
 		this.reservacion = reservacion;
 	}
 */
-	public Habitacion getHabitacion() {
-		return habitacion;
-	}
-
-	public void setHabitacion(Habitacion habitacion) {
-		this.habitacion = habitacion;
-	}
+	
 
 	// Métodos getter y setter para cada campo de la clase
     public String getTelefono() {
 		return telefono;
+	}
+
+	public List<Habitacion> getHabitaciones() {
+		return habitaciones;
+	}
+
+	public void setHabitaciones(List<Habitacion> habitaciones) {
+		this.habitaciones = habitaciones;
 	}
 
 	public void setTelefono(String telefono) {
