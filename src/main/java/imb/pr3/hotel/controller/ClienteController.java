@@ -53,14 +53,14 @@ public class ClienteController {
 	public ResponseEntity<APIResponse<Cliente>> crear(@RequestBody Cliente Cliente) {
 		return service.existe(Cliente.getId())
 				? ResponseUtil.badRequest("Ya existe un cliente con el identificador proporcionado.")
-        		: ResponseUtil.created(service.crear(Cliente)); //Crea el cliente si está el id disponible
+        		: ResponseUtil.created(service.guardar(Cliente)); //Crea el cliente si está el id disponible
 	}
 
 	// Endpoint para modificar un cliente
 	@PutMapping("/Cliente") //Define el método "modificar", y funciona tomando un objeto Cliente para devolver una respuesta con el ResponseEntity
 	public ResponseEntity<APIResponse<Cliente>> modificar(@RequestBody Cliente Cliente) {
 		return service.existe(Cliente.getId()) //Verifica existencia del cliente por ID 
-				? ResponseUtil.success(service.crear(Cliente)) //Modifica el cliente si encuentra
+				? ResponseUtil.success(service.guardar(Cliente)) //Modifica el cliente si encuentra
 				: ResponseUtil.badRequest("No existe un cliente con ese identificador."); //Devuelve 400 si no  encuentra
 	}
 

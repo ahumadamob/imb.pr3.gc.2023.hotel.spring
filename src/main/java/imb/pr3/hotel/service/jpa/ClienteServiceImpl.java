@@ -34,10 +34,10 @@ public class ClienteServiceImpl implements IClienteService{
         }
 	}
 
-	@Override
+	/*@Override
 	public Cliente crear(Cliente Cliente) { //Crear un cliente nuevo
 		return repo.save(Cliente); //Método de JPA
-	}
+	}*/
 
 	@Override
 	public String eliminar(Integer id) {  //Borrar un cliente si existe
@@ -50,7 +50,7 @@ public class ClienteServiceImpl implements IClienteService{
 	    }
 	}
 
-	@Override
+	/*@Override
 	public Cliente modificar(Cliente ClienteModificado) { //Modificar un cliente
 		Integer id = ClienteModificado.getId();
 	    Optional<Cliente> ClienteOptional = repo.findById(id); //Método de JPA
@@ -68,6 +68,11 @@ public class ClienteServiceImpl implements IClienteService{
 	    } else {
 	        return null;
 	    }
+	}*/
+	
+	@Override
+	public Cliente guardar(Cliente Cliente) {
+		return repo.save(Cliente); //Método de JPA
 	}
 	
 	@Override
