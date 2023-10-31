@@ -6,10 +6,10 @@ import imb.pr3.hotel.entity.Habitacion;
 
 
 public interface IHabitacionService {
-
-	public List<Habitacion> obtenerTodasLasHabitacion(); //Obtiente todas las habitaciones de la bbdd
-    public Habitacion buscarHabitacionPorId(Long id); //Obtiene una habitacion por su ID
-    public Habitacion crearHabitacion(Habitacion habitacion); //Crea una neva habitacion en la bbdd.
-    public String eliminarHabitacion(Long id); //Eliminar una habitacion por ID
-    public Habitacion modificarHabitacion(Habitacion habitacion); //Modifca los datos de la habitacion en la bbdd
+    public List<Habitacion> obtenerTodos(); // Recuperar TODAS las habitaciones de la bbdd
+    public Habitacion buscarPorId(Integer id); // Recuperar una habitación, por su ID
+    public Habitacion guardar(Habitacion Habitacion); // Creación y modificación
+    public String eliminar(Integer id); // Eliminar una habitación de la bbdd por ID
+    public boolean existe(Integer id); // Evaluar la existencia del ID
 }
+

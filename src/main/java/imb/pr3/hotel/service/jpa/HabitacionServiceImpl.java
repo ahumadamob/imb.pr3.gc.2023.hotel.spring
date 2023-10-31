@@ -13,62 +13,44 @@ import imb.pr3.hotel.service.IHabitacionService;
 
 
 @Service
-public class HabitacionServiceImpl implements IHabitacionService{
+public class HabitacionServiceImpl implements IHabitacionService {
 
-	@Autowired
-	HabitacionlRepository repo; 
+    @Autowired
+    HabitacionRepository repo; // Objeto para interactuar con la base de datos
 
-	@Override
-	public List<Habitacion> obtenerTodasLasHabitacion() {
+    @Override
+    public List<Habitacion> obtenerTodos() { // Recuperar una LISTA con las habitaciones
+        return repo.findAll(); // Método de JPA
+    }
 
-		return repo.findAll();
-	}
+    @Override
+    public Habitacion buscarPorId(Integer id) { // Recupera una habitación por ID
+        Optional<Habitacion> habitacionOptional = repo.findById(id); // Método de JPA
+        if (habitacionOptional.isPresent()) {
+            return habitacionOptional.get();
+        } else {
+            return null;
+        }
+    }
 
-	@Override
-	public Habitacion buscarHabitacionPorId(Integer id) {
-		Optional<Habitacion> optional = repo.findById(id);
+    @Override
+    public String eliminar(Integer id) { // Borrar una habitación si existe
+        boolean existeRegistro = repo.existsById(id); // Método de JPA
+        if (existeRegistro) {
+            repo.deleteById(id); // Método de JPA
+            return "Habitación eliminada correctamente.";
+        } else {
+            return "Registro no encontrado.";
+        }
+    }
 
-		if(optional.isPresent()) {
-			return optional.get();
-		}
-		else {
-			return null;
-		}
-	}	
-	
-	@Override
-	public Habitacion crearHabitacion(Habitacion habitacion) { //creacion de una nueva habitacion
-		return repo.save(habitacion); //implementacion de los metodos de JPA
-	}
-	
-	@Override
-	public String eliminarHabitacion(Long id) {  //Borrar una habitacion si existe
-		boolean existeRegistro = repo.existsById(id); //implementacion de JPA
-	    if (existeRegistro) {
-	        repo.deleteById(id); //Método de JPA
-	        return "Habitacion eliminada correctamente.";
-	    } else {
-	        return "Registro no encontrado.";
-	    }
-	}
+    @Override
+    public Habitacion guardar(Habitacion habitacion) {
+        return repo.save(habitacion); // Método de JPA
+    }
 
-	@Override
-	public habitacion modificarHabitacion(Habitacion habitacionModificada) { //Modificar una habitacion
-		Long id = habitacionModificada.getId();
-	    Optional<Habitacion> HabitacionOptional = repo.findById(id); //Método de JPA
-	    if (HabitacionOptional.isPresent()) {
-	    	//guardo la habitacion temporalmente para intercambiar los datos viejos con los nuevos
-	        Habitacion HabitacionExistente = HabitacionOptional.get();
-	        HabitacionExistente.setPiso(habitacionModificada.getPiso());
-	        HabitacionExistente.setNumero(habitacionModificada.getNumero());
-	        HabitacionExistente.setPuntoCardinal(habitacionModificada.getPuntoCardinal());
-	        HabitacionExistente.setCapacidad(habitacionModificada.getCapacidad());
-	        HabitacionExistente.setCamas(habitacionModificada.getCamas());
-	        HabitacionExistente.setSuite(habitacionModificada.getSuite());
-
-	        return repo.save(HabitacionExistente);
-	    } else {
-	        return null;
-	    }
-	}
+    @Override
+    public boolean existe(Integer id) {
+        return (id == null) ? false : repo.existsById(id);
+    }
 }
