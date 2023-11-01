@@ -31,61 +31,49 @@ public class HabitacionController {
 
     @Autowired
     IHabitacionService service;
-    
-    // Endpoint para obtener todas las habitaciones
+
     @GetMapping("/Habitacion")
-    public ResponseEntity<APIResponse<List<Habitacion>>> obtenerTodasLasHabitaciones(){
-        APIResponse<List<Habitacion>> response = new APIResponse<List<Habitacion>>(200, null, service.obtenerTodasLasHabitacion());    
-        List<Habitacion> habitaciones = response.getData(); 
-        return (habitaciones.isEmpty())
-                ? ResponseEntity.status(HttpStatus.NOT_FOUND).body(response)
-                : ResponseEntity.status(HttpStatus.OK).body(response);
+    public ResponseEntity<APIResponse<List<Habitacion>>> obtenerTodos(){
+        List<Habitacion> habitacion = service.obtenerTodos();
+        return habitacion.isEmpty()
+               ? ResponseUtil.notFound("No hay habitaciones registradas.")
+               : ResponseUtil.success(habitacion);
     }
-    
-    // Endpoint para obtener una habitación por ID
+
     @GetMapping("/Habitacion/{id}")
-    public ResponseEntity<APIResponse<Habitacion>> buscarHabitacionPorId(@PathVariable("id") Long id) {
-        Habitacion habitacionPorId = service.buscarHabitacionPorId(id);
-        return habitacionPorId == null 
-                ? ResponseUtil.notFound("No se encontró la habitación con el identificador proporcionado")
+    public ResponseEntity<APIResponse<Habitacion>> buscarPorId(@PathVariable("id") Integer id) {
+        Habitacion habitacionPorId = service.buscarPorId(id);
+        return habitacionPorId == null
+                ? ResponseUtil.notFound("No se encontró la habitacion con el identificador proporcionado")
                 : ResponseUtil.success(habitacionPorId);
     }
 
-    // Endpoint para crear una habitación
     @PostMapping("/Habitacion")
-    public ResponseEntity<APIResponse<Habitacion>> crearHabitacion(@RequestBody Habitacion habitacion) {
-        return this.existe(habitacion.getId())
-                ? ResponseUtil.badRequest("Ya existe una habitación con el identificador proporcionado.")
-                : ResponseUtil.created(service.crearHabitacion(habitacion));
+    public ResponseEntity<APIResponse<Habitacion>> crear(@RequestBody Habitacion habitacion) {
+        return service.existe(habitacion.getId())
+                ? ResponseUtil.badRequest("Ya existe una habitacion con el identificador proporcionado.")
+                : ResponseUtil.created(service.guardar(habitacion));
     }
 
-    // Endpoint para modificar una habitación
     @PutMapping("/Habitacion")
-    public ResponseEntity<APIResponse<Habitacion>> modificarHabitacion(@RequestBody Habitacion habitacion) {
-        return this.existe(habitacion.getId()) 
-                ? ResponseUtil.success(service.crearHabitacion(habitacion))
-                : ResponseUtil.badRequest("No existe una habitación con ese identificador.");
+    public ResponseEntity<APIResponse<Habitacion>> modificar(@RequestBody Habitacion habitacion) {
+        return service.existe(habitacion.getId())
+                ? ResponseUtil.success(service.guardar(habitacion))
+                : ResponseUtil.badRequest("No existe una habitacion con ese identificador.");
     }
 
-    // Endpoint para eliminar una habitación con el ID
     @DeleteMapping("/Habitacion/{id}")
-    public ResponseEntity<APIResponse<String>> eliminarHabitacion(@PathVariable("id") Long id) {
-        return this.existe(id) 
-                ? ResponseUtil.success(service.eliminarHabitacion(id))
-                : ResponseUtil.badRequest("No se encontró esa habitación. No se borró registro alguno.");
+    public ResponseEntity<APIResponse<String>> eliminar(@PathVariable("id") Integer id) {
+        return service.existe(id)
+                ? ResponseUtil.success(service.eliminar(id))
+                : ResponseUtil.badRequest("No se encontró esa habitacion. No se borró registro alguno.");
     }
 
-    // Verificador de existencia usando el ID
-    public boolean existe(Long id) {
-        return (id != null) ? (service.buscarHabitacionPorId(id) != null) : false;
-    }
-    
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<APIResponse<Habitacion>> handleException(Exception ex) {        
+    public ResponseEntity<APIResponse<Habitacion>> handleException(Exception ex) {
         return ResponseUtil.badRequest(ex.getMessage());
     }
-    
-    // Manejador de excepciones, modifica mensajes para los errores
+
     @ExceptionHandler(ConstraintViolationException.class)
     public ResponseEntity<APIResponse<Habitacion>> handleConstraintViolationException(ConstraintViolationException ex) {
         return ResponseUtil.handleConstraintException(ex);
