@@ -6,6 +6,6 @@ import imb.pr3.hotel.entity.Habitacion;
 
 
 
-public interface HabitacionRepository extends JpaRepository<Habitacion, Integer> {
+public interface HabitacionlRepository extends JpaRepository<Habitacion, Integer> {
 
 }

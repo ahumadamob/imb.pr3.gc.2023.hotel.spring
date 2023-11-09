@@ -7,44 +7,50 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import imb.pr3.hotel.entity.Habitacion;
-import imb.pr3.hotel.repository.HabitacionRepository;
-import imb.pr3.hotel.service.iHabitacionService;
+
+import imb.pr3.hotel.repository.HabitacionlRepository;
+import imb.pr3.hotel.service.IHabitacionService;
+
 
 @Service
-public class HabitacionServiceImpl implements iHabitacionService{
+public class HabitacionServiceImpl implements IHabitacionService {
 
-	@Autowired
-	HabitacionRepository repo; 
+    @Autowired
+    HabitacionRepository repo; // Objeto para interactuar con la base de datos
 
-	@Override
-	public List<Habitacion> buscarTodas() {
+    @Override
+    public List<Habitacion> obtenerTodos() { // Recuperar una LISTA con las habitaciones
+        return repo.findAll(); // Método de JPA
+    }
 
-		return repo.findAll();
-	}
+    @Override
+    public Habitacion buscarPorId(Integer id) { // Recupera una habitación por ID
+        Optional<Habitacion> habitacionOptional = repo.findById(id); // Método de JPA
+        if (habitacionOptional.isPresent()) {
+            return habitacionOptional.get();
+        } else {
+            return null;
+        }
+    }
 
-	@Override
-	public Habitacion buscarPorId(Integer id) {
-		Optional<Habitacion> optional = repo.findById(id);
+    @Override
+    public String eliminar(Integer id) { // Borrar una habitación si existe
+        boolean existeRegistro = repo.existsById(id); // Método de JPA
+        if (existeRegistro) {
+            repo.deleteById(id); // Método de JPA
+            return "Habitación eliminada correctamente.";
+        } else {
+            return "Registro no encontrado.";
+        }
+    }
 
-		if(optional.isPresent()) {
-			return optional.get();
-		}
-		else {
-			return null;
-		}
+    @Override
+    public Habitacion guardar(Habitacion habitacion) {
+        return repo.save(habitacion); // Método de JPA
+    }
 
-	}	
-	
-	@Override
-	public void guardar(Habitacion habitacion) {
-
-		repo.save(habitacion);
-	}
-
-	@Override
-	public void eliminar(Integer id) {
-
-		repo.deleteById(id);
-
-	}
+    @Override
+    public boolean existe(Integer id) {
+        return (id == null) ? false : repo.existsById(id);
+    }
 }
