@@ -1,4 +1,4 @@
-package imb.pr3.hotel.controllers;
+package imb.pr3.hotel.controller;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,7 +45,7 @@ public class ReservacionController {
 	@GetMapping("/reservacion/{id}")
 	public ResponseEntity<APIResponse<Reservacion>> buscarPorId(@PathVariable("id") Integer id){
 		Reservacion Reservacion = service.buscarPorId(id);
-		Object reservacion = null;
+		imb.pr3.hotel.entity.Reservacion reservacion = null;
 		if(reservacion == null) {
 			List <String> messages = new ArrayList<>();
 			messages.add("No se encontró la reservacion con el id: " + id.toString());
@@ -125,7 +125,7 @@ public class ReservacionController {
 	public ResponseEntity<APIResponse<Reservacion>> eliminar(@PathVariable("id") Integer id){
 		Reservacion buscahabitacion = service.buscarPorId(id);
 
-		Object buscareservacion = null;
+		Reservacion buscareservacion = null;
 		List <String> messages = new ArrayList<>();
 		messages.add("No existe un comentario con el id: " + id.toString());
 		APIResponse<Reservacion> response = new APIResponse<Reservacion>(HttpStatus.OK.value(), null, buscareservacion);

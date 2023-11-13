@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import imb.pr3.hotel.entity.Habitacion;
 
-import imb.pr3.hotel.repository.HabitacionlRepository;
+import imb.pr3.hotel.repository.HabitacionRepository;
 import imb.pr3.hotel.service.IHabitacionService;
 
 

@@ -74,8 +74,10 @@ public class HabitacionController {
         return ResponseUtil.badRequest(ex.getMessage());
     }
 
+    /*
     @ExceptionHandler(ConstraintViolationException.class)
     public ResponseEntity<APIResponse<Habitacion>> handleConstraintViolationException(ConstraintViolationException ex) {
         return ResponseUtil.handleConstraintException(ex);
     }
+    */
 }

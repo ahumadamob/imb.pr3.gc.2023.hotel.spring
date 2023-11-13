@@ -4,8 +4,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import imb.pr3.hotel.entity.Habitacion;
 
-
-
-public interface HabitacionlRepository extends JpaRepository<Habitacion, Integer> {
+public interface HabitacionRepository extends JpaRepository<Habitacion, Integer> {
 
 }
