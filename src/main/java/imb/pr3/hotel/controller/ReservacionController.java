@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,6 +22,7 @@ import imb.pr3.hotel.service.iReservacionService;
 
 
 @RestController
+@ControllerAdvice
 @RequestMapping("/api/v1")
 public class ReservacionController {
 
@@ -45,7 +47,7 @@ public class ReservacionController {
 	@GetMapping("/reservacion/{id}")
 	public ResponseEntity<APIResponse<Reservacion>> buscarPorId(@PathVariable("id") Integer id){
 		Reservacion Reservacion = service.buscarPorId(id);
-		imb.pr3.hotel.entity.Reservacion reservacion = null;
+		Reservacion reservacion = null;
 		if(reservacion == null) {
 			List <String> messages = new ArrayList<>();
 			messages.add("No se encontró la reservacion con el id: " + id.toString());

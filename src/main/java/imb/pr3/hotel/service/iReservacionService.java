@@ -4,6 +4,7 @@ import java.util.List;
 
 import imb.pr3.hotel.entity.Reservacion;
 
+
 public interface iReservacionService {
 	
 	List <Reservacion> buscarTodas();

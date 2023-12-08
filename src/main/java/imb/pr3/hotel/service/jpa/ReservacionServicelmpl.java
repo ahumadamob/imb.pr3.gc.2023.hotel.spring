@@ -4,11 +4,15 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Primary;
+import org.springframework.stereotype.Service;
 
 import imb.pr3.hotel.entity.Reservacion;
 import imb.pr3.hotel.repository.ReservacionRepository;
 import imb.pr3.hotel.service.iReservacionService;
 
+@Service
+@Primary
 public class ReservacionServicelmpl implements iReservacionService{
 	
 	@Autowired

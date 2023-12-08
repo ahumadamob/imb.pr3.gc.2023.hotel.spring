@@ -1,8 +1,15 @@
 package imb.pr3.hotel.entity;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
+@Entity
 public class Proveedor {
 
-	
+	@Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;    
     private String  razonsocial;
     private Integer cuit;
@@ -10,7 +17,8 @@ public class Proveedor {
     private Integer tipodeproveedor;
     private String estado;
     private Integer telefono;
-	public Integer getId() {
+	
+    public Integer getId() {
 		return id;
 	}
 	public void setId(Integer id) {
