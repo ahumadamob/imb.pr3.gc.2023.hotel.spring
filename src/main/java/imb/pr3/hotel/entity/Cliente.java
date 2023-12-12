@@ -38,27 +38,19 @@ public class Cliente {
     @NotBlank(message = "El correo electrónico no puede estar vacío.")
     @Email(message = "Debe proporcionar una dirección de correo electrónico válida.")
     private String correo; // Correo electrónico del cliente
+    private boolean habilitado;
     
-    /*
-    //TODO:A la espera de la llegada de la entidad correspondiente al proyecto
-    @ManyToOne
-    @JoinColumn(name = "reservacion_id")
-    private Reservacion reservacion;
-    */
-    
-    @OneToMany(mappedBy = "cliente")
+    public boolean isHabilitado() {
+		return habilitado;
+	}
+
+	public void setHabilitado(boolean habilitado) {
+		this.habilitado = habilitado;
+	}
+
+	@OneToMany(mappedBy = "cliente")
     private List<Habitacion> habitaciones;
-  /*
-    public Reservacion getReservacion() {
-		return reservacion;
-	}
-
-	public void setReservacion(Reservacion reservacion) {
-		this.reservacion = reservacion;
-	}
-*/
-	
-
+  
 	// Métodos getter y setter para cada campo de la clase
     public String getTelefono() {
 		return telefono;

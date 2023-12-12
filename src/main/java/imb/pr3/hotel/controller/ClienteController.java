@@ -39,6 +39,24 @@ public class ClienteController {
 	           : ResponseUtil.success(cliente);
 	}
 	
+	// Endpoint para obtener todos los clientes habilitados
+	@GetMapping("/Cliente/habilitados")
+	public ResponseEntity<APIResponse<List<Cliente>>> obtenerClientesHabilitados(){
+		List<Cliente> clientesHabilitados = service.obtenerHabilitados(true);
+		return clientesHabilitados.isEmpty()
+			   ? ResponseUtil.notFound("No hay clientes habilitados.")
+	           : ResponseUtil.success(clientesHabilitados);
+	}
+	
+	// Endpoint para obtener todos los clientes habilitados
+	@GetMapping("/Cliente/deshabilitados")
+	public ResponseEntity<APIResponse<List<Cliente>>> obtenerClientesDeshabilitados(){
+		List<Cliente> clientesHabilitados = service.obtenerHabilitados(false);
+		return clientesHabilitados.isEmpty()
+			   ? ResponseUtil.notFound("No hay clientes deshabilitados.")
+	           : ResponseUtil.success(clientesHabilitados);
+	}
+	
 	// Endpoint para obtener un cliente por ID
 	@GetMapping("/Cliente/{id}")
 	public ResponseEntity<APIResponse<Cliente>> buscarPorId(@PathVariable("id") Integer id) {
