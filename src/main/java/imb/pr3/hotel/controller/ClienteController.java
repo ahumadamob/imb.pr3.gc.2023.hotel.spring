@@ -82,12 +82,58 @@ public class ClienteController {
 				: ResponseUtil.badRequest("No existe un cliente con ese identificador."); //Devuelve 400 si no  encuentra
 	}
 
+	// Endpoint para habilitar un cliente con el ID
+	@PutMapping("/Cliente/habilitar/{id}")
+	public ResponseEntity<APIResponse<String>> habilitar(@PathVariable("id") Integer id) {
+	    if(service.existe(id)) {
+			Cliente cliente = service.buscarPorId(id);
+		    cliente.setHabilitado(true);
+		    service.guardar(cliente);
+		    return ResponseUtil.success("Se habilitó el cliente: "+cliente.getId());
+	    }else {
+	    	ResponseUtil.badRequest("No se encontró ese cliente. No se habilitó.");
+	    }
+	    
+		return null;
+	}
+	
+	// Endpoint para habilitar un cliente con el ID
+	@PutMapping("/Cliente/deshabilitar/{id}")
+	public ResponseEntity<APIResponse<String>> deshabilitar(@PathVariable("id") Integer id) {
+	    if(service.existe(id)) {
+			Cliente cliente = service.buscarPorId(id);
+		    cliente.setHabilitado(false);
+		    service.guardar(cliente);
+		    return ResponseUtil.success("Se deshabilitó el cliente: "+cliente.getId());
+	    }else {
+	    	ResponseUtil.badRequest("No se encontró ese cliente. No se deshabilitó.");
+	    }
+		return null;
+	}
+	
 	// Endpoint para eliminar un cliente con el ID
 	@DeleteMapping("/Cliente/{id}")
 	public ResponseEntity<APIResponse<String>> eliminar(@PathVariable("id") Integer id) {
 	    return service.existe(id) 
 	    		? ResponseUtil.success(service.eliminar(id))
 	    		:ResponseUtil.badRequest("No se encontró ese cliente. No se borró registro alguno.");
+	}
+	
+	// Endpoint para eliminar un cliente con el ID
+	@DeleteMapping("/Cliente/eliminarDeshabilitado/{id}")
+	public ResponseEntity<APIResponse<Cliente>> eliminarDeshabilitado(@PathVariable("id") Integer id) {
+		 if(service.existe(id)) {
+				Cliente cliente = service.buscarPorId(id);
+				if(cliente.isHabilitado() == true) {
+					return ResponseUtil.badRequest("No se puede eliminar un cliente habilitado.");
+				}else {
+					service.eliminar(id);
+					ResponseUtil.success("Se boró el cliente: "+cliente.getId());	
+				}
+		    }else {
+		    	ResponseUtil.badRequest("No se encontró ese cliente. No se borró.");
+		    }
+			return null;
 	}
 
 	@ExceptionHandler(Exception.class)
