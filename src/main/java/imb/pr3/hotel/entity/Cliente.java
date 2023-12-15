@@ -38,15 +38,7 @@ public class Cliente {
     @NotBlank(message = "El correo electrónico no puede estar vacío.")
     @Email(message = "Debe proporcionar una dirección de correo electrónico válida.")
     private String correo; // Correo electrónico del cliente
-    private boolean habilitado;
     
-    public boolean isHabilitado() {
-		return habilitado;
-	}
-
-	public void setHabilitado(boolean habilitado) {
-		this.habilitado = habilitado;
-	}
 
 	@OneToMany(mappedBy = "cliente")
     private List<Habitacion> habitaciones;

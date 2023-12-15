@@ -55,14 +55,4 @@ public class ClienteServiceImpl implements IClienteService{
 		return(id ==null)? false:repo.existsById(id);
 	}
 
-	@Override
-	public List<Cliente> obtenerHabilitados(boolean habilitado) { //Recuperar una LISTA con lso clientes habilitados
-		return repo.findByHabilitado(habilitado); //Método creado a mano en el Repository
-	}
-
-	@Override
-	public boolean habilitar(Integer id) {
-		// TODO Auto-generated method stub
-		return false;
-	}
 }

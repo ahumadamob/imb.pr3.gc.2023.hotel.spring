@@ -10,6 +10,4 @@ public interface IClienteService {
     public Cliente guardar(Cliente Cliente); //Creación y modificación
     public String eliminar(Integer id); //Eliminar un cliente de la bbdd por ID
     public boolean existe(Integer id); //Evaluar la existencia del ID
-    public List<Cliente> obtenerHabilitados(boolean habilitado);
-    public boolean habilitar(Integer id);
 }
