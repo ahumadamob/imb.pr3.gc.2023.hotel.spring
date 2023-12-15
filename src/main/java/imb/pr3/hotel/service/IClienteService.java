@@ -10,4 +10,5 @@ public interface IClienteService {
     public Cliente guardar(Cliente Cliente); //Creación y modificación
     public String eliminar(Integer id); //Eliminar un cliente de la bbdd por ID
     public boolean existe(Integer id); //Evaluar la existencia del ID
+    public List<Cliente> obtenerPorGenero(String genero); //Recuperar todos los clientes según el género
 }

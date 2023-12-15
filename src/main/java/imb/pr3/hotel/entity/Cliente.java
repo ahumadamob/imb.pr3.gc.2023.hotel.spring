@@ -38,7 +38,17 @@ public class Cliente {
     @NotBlank(message = "El correo electrónico no puede estar vacío.")
     @Email(message = "Debe proporcionar una dirección de correo electrónico válida.")
     private String correo; // Correo electrónico del cliente
-    
+    @NotBlank(message = "El género no puede estar vacío.")
+	@Size(min = 1, max = 1, message = "Debe ingresar única una letra representando al género.")
+    private String genero; // Género del cliente
+
+	public String getGenero() {
+		return genero;
+	}
+
+	public void setGenero(String genero) {
+		this.genero = genero;
+	}
 
 	@OneToMany(mappedBy = "cliente")
     private List<Habitacion> habitaciones;

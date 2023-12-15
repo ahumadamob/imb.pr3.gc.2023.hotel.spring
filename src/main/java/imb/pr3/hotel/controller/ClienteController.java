@@ -71,6 +71,15 @@ public class ClienteController {
 	    		? ResponseUtil.success(service.eliminar(id))
 	    		:ResponseUtil.badRequest("No se encontró ese cliente. No se borró registro alguno.");
 	}
+	
+	// Endpoint para obtener todos los clientes según el género especificado
+	@GetMapping("/Cliente/genero/{g}")
+	public ResponseEntity<APIResponse<List<Cliente>>> obtenerPorGenero(@PathVariable("g") String genero){
+		List<Cliente> clientesPorGenero = service.obtenerPorGenero(genero);
+		return clientesPorGenero.isEmpty()
+			   ? ResponseUtil.notFound("No hay clientes registrados con ese género.")
+	           : ResponseUtil.success(clientesPorGenero);
+	}
 
 	@ExceptionHandler(Exception.class)
     public ResponseEntity<APIResponse<Cliente>> handleException(Exception ex) {    	

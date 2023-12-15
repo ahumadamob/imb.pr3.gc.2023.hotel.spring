@@ -51,6 +51,11 @@ public class ClienteServiceImpl implements IClienteService{
 	}
 	
 	@Override
+	public List<Cliente> obtenerPorGenero(String genero) { //Recupera una LISTA con lso clientes según género
+		return repo.findByGenero(genero); //Método creado a mano en el Repository
+	}	
+	
+	@Override
 	public boolean existe(Integer id) {
 		return(id ==null)? false:repo.existsById(id);
 	}
